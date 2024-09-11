@@ -1,14 +1,4 @@
-- The commands to complete any required setup using your submission‬
-- Instructions on how to demonstrate each deliverable of the challenge‬
-- Brief description of rationale behind each significant tool/language/framework of‬
-‭ choice.‬
-- Brief description of key challenges
-- It’s okay to call attention to areas that you aren't certain about and might make‬
-‭ different choices if you took more time‬
-- Note any known caveats and potential failure scenarios with the current‬
-‭ submission‬
-
-# My Rails Application
+# Spina CMS Rails Application
 
 This is a Ruby on Rails application with Spina CMS, set up using Docker for development and deployment.
 
@@ -19,6 +9,10 @@ This is a Ruby on Rails application with Spina CMS, set up using Docker for deve
 - [Setup](#setup)
 - [Usage](#usage)
 - [Docker Commands](#docker-commands)
+- [Rationale](#rationale)
+- [Resources](#resources)
+- [Challenges](#challenges)
+- [Some Caveats and Potential Pitfalls](#some-caveats-and-potential-pitfalls)
 
 ## Features
 
@@ -41,8 +35,8 @@ Ensure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/blindside85/rails-docker-challenge.git
+cd rails-docker-challenge
 ```
 
 ### Configuration
