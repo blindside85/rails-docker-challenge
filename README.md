@@ -2,13 +2,17 @@
 
 This is a Ruby on Rails application with Spina CMS, set up using Docker for development and deployment.
 
+**Screenshots**
+
+![The homepage is alive!](/media/spina-home-demo.png)
+![Admin access has been granted](/media/spina-admin-demo.png)
+
 ## Table of Contents
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
 - [Usage](#usage)
-- [Docker Commands](#docker-commands)
 - [Rationale](#rationale)
 - [Resources](#resources)
 - [Challenges](#challenges)
@@ -81,6 +85,9 @@ cd rails-docker-challenge
 
    ```bash
    docker-compose run app bundle exec rails g spina:install
+   # you'll be asked to provide a site name, theme, username, and password
+   # you can just hit [enter] to accept the defaults, or provide custom
+   # details if you like!
    ```
 
 5. **Clean Rebuild & Restart Docker Compose:**
@@ -113,8 +120,19 @@ cd rails-docker-challenge
   docker-compose run app bundle exec rails console
   ```
 
+- **Switching Environments:**
+
+  In order to change between dev environments like local and production, a few simple steps are needed:
+  1. Update the values inside your `.env` file
+     - change `RAILS_ENV` to suit your needs (development, staging, production, test, etc)
+     - modify the database-specific variables to suit the environment (different DB name, user, password)
+  2. Stop any running containers with `docker-compose down`
+  3. Re-run all 5 steps under the [Docker Setup](#docker-setup) section above
+  4. You should now be running a new, distinct configuration on a different database than before :tada:
+
 ## Rationale
-- Not much to say here, really. Spina comes with its own selection of tools and frameworks (Tailwind, etc), and I chose not to deviate from the defaults for this exercise.
+- I shot for easy configuration from an infrastructure level with this challenge. I avoided hardcoding any sensitive data for better security and future flexibility overall
+- Not much else to say here, really. Spina comes with its own selection of tools and frameworks (Tailwind, etc), and I chose not to deviate from the defaults for this exercise.
 
 ## Resources
 - ChatGPT for non-sensitive "rubber ducking" (troubleshooting build and console errors, primarily)
