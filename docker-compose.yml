@@ -1,0 +1,40 @@
+services:
+  # To enable the condition for `app`, you'd also wanna add a health check here'
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      # Named volume to persist database data outside of container.
+      # Format is "named_volume:path/in/container"
+      - db_pg_data:/var/lib/postgresql/data
+    ports:
+      # Using a different port in case 5432 is already in use
+      - "5342:5432"
+    networks:
+      - app_network
+
+  app:
+    build: .
+    restart: always
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b '0.0.0.0'"
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      # It would be good to add a condition to the dependency here
+      - db
+    env_file: .env
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
+volumes:
+  db_pg_data:
+    driver: local

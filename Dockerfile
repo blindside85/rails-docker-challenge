@@ -1,18 +1,7 @@
 # syntax = docker/dockerfile:1
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t my-app .
-# docker run -d -p 80:80 -p 443:443 --name my-app -e RAILS_MASTER_KEY=<value from config/master.key> my-app
-
-# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
-
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.3.5
-ARG RAILS_ENV=development
-ARG SECRET_KEY_BASE_DUMMY
-ARG DATABASE_NAME
-ARG DATABASE_USER
-ARG DATABASE_PASSWORD
 
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
@@ -30,10 +19,9 @@ FROM base AS build
 
 WORKDIR /rails
 
-ENV RAILS_ENV=${RAILS_ENV} \
-  BUNDLE_DEPLOYMENT="1" \
-  BUNDLE_PATH="/usr/local/bundle" \
-  DATABASE_NAME=${DATABASE_NAME} \
+# I'd rather not have to do this, but rails gets mad if they aren't here. If we
+# *have* to have it, using --mount=type=secret would be much better
+ENV DATABASE_NAME=${DATABASE_NAME}\
   DATABASE_USER=${DATABASE_USER} \
   DATABASE_PASSWORD=${DATABASE_PASSWORD}
 
@@ -45,10 +33,12 @@ RUN apt-get update -qq && \
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
-  rm -rf ~/.bundle/ ${BUNDLE_PATH}/cache ${BUNDLE_PATH}/bundler/gems/*/.git && \
+  rm -rf ~/.bundle/ /usr/local/bundle/cache /usr/local/bundle/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 
 # Copy application code
+# Need to spend more time combing through the built image to make sure extra
+# files aren't being baked in
 COPY . .
 
 # Precompile bootsnap code for faster boot times
@@ -64,7 +54,7 @@ WORKDIR /rails
 
 # Copy built artifacts: gems, application
 RUN mkdir -p /rails/db /rails/log /rails/storage /rails/tmp
-COPY --from=build ${BUNDLE_PATH} ${BUNDLE_PATH}
+COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails .
 
 # Run and own only the runtime files as a non-root user for security
