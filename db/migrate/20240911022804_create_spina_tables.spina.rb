@@ -85,7 +85,7 @@ class CreateSpinaTables < ActiveRecord::Migration[4.2]
       t.datetime "updated_at"
     end
 
-    add_index "spina_structure_items", ["structure_id"], name: "index_spina_structure_items_on_structure_id", using: :btree
+    add_index "spina_structure_items", [ "structure_id" ], name: "index_spina_structure_items_on_structure_id", using: :btree
 
     create_table "spina_structure_parts", force: :cascade do |t|
       t.integer "structure_item_id"
@@ -97,8 +97,8 @@ class CreateSpinaTables < ActiveRecord::Migration[4.2]
       t.datetime "updated_at"
     end
 
-    add_index "spina_structure_parts", ["structure_item_id"], name: "index_spina_structure_parts_on_structure_item_id", using: :btree
-    add_index "spina_structure_parts", ["structure_partable_id"], name: "index_spina_structure_parts_on_structure_partable_id", using: :btree
+    add_index "spina_structure_parts", [ "structure_item_id" ], name: "index_spina_structure_parts_on_structure_item_id", using: :btree
+    add_index "spina_structure_parts", [ "structure_partable_id" ], name: "index_spina_structure_parts_on_structure_partable_id", using: :btree
 
     create_table "spina_structures", force: :cascade do |t|
       t.datetime "created_at"

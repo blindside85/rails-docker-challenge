@@ -17,7 +17,7 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # Silence warnings about ostruct's removal in Ruby 3.5
-gem 'ostruct'
+gem "ostruct"
 # Workaround to avoid net-pop causing bundle install failures
 # See: https://github.com/ruby/ruby/pull/11006#issuecomment-2176562332
 gem "net-pop", github: "ruby/net-pop"

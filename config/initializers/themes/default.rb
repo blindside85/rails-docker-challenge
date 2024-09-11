@@ -21,7 +21,7 @@ Spina::Theme.register do |theme|
   # - Option
   # - Repeater
   theme.parts = [
-    {name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text"}
+    { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" }
   ]
 
   # View templates
@@ -29,22 +29,22 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    {name: "homepage", title: "Homepage", parts: %w[text]},
-    {name: "show", title: "Page", parts: %w[text]}
+    { name: "homepage", title: "Homepage", parts: %w[text] },
+    { name: "show", title: "Page", parts: %w[text] }
   ]
 
   # Custom pages
   # Some pages should not be created by the user, but generated automatically.
   # By naming them you can reference them in your code.
   theme.custom_pages = [
-    {name: "homepage", title: "Homepage", deletable: false, view_template: "homepage"}
+    { name: "homepage", title: "Homepage", deletable: false, view_template: "homepage" }
   ]
 
   # Navigations (optional)
   # If your project has multiple navigations, it can be useful to configure multiple
   # navigations.
   theme.navigations = [
-    {name: "main", label: "Main navigation"}
+    { name: "main", label: "Main navigation" }
   ]
 
   # Layout parts (optional)
