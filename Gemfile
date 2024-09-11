@@ -18,6 +18,9 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Silence warnings about ostruct's removal in Ruby 3.5
 gem 'ostruct'
+# Workaround to avoid net-pop causing bundle install failures
+# See: https://github.com/ruby/ruby/pull/11006#issuecomment-2176562332
+gem "net-pop", github: "ruby/net-pop"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
